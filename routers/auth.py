@@ -4,10 +4,10 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.templating import Jinja2Templates
 from typing import Annotated
 from pydantic import BaseModel, Field
-from TodoApp.models import Users
+from models import Users
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from TodoApp.database import SessionLocal
+from database import SessionLocal
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
@@ -75,7 +75,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="Could not validate credentials")
 
-templates = Jinja2Templates(directory="TodoApp/templates")
+templates = Jinja2Templates(directory="templates")
 
 ### pages ###
 @router.get("/login-page")

@@ -1,8 +1,8 @@
 from starlette import status
-from TodoApp.routers.auth import get_current_user
-from TodoApp.routers.admin import get_db
-from TodoApp.test.utils import *
-from TodoApp.models import Todos
+from routers.auth import get_current_user
+from routers.admin import get_db
+from test.utils import *
+from models import Todos
 
 app.dependency_overrides[get_db] = override_get_db
 app.dependency_overrides[get_current_user] = override_get_current_user

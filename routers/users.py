@@ -5,9 +5,9 @@ from fastapi import Depends, HTTPException, Path, APIRouter
 from starlette import status
 from starlette.status import HTTP_401_UNAUTHORIZED
 
-from TodoApp.models import Todos, Users
-from TodoApp.database import SessionLocal
-from TodoApp.routers.auth import get_current_user
+from models import Todos, Users
+from database import SessionLocal
+from routers.auth import get_current_user
 from passlib.context import CryptContext
 
 

@@ -3,13 +3,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, Path, APIRouter, Request
 from starlette import status
-from  TodoApp.models import Todos
-from TodoApp.database import SessionLocal
+from  models import Todos
+from database import SessionLocal
 from .auth import get_current_user
 from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory="TodoApp/templates")
+templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(
     prefix="/todos",

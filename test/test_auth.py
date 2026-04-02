@@ -1,5 +1,5 @@
-from TodoApp.routers.auth import get_current_user, get_db, authenticate_user, create_access_token, SECRET_KEY, ALGORITHM
-from TodoApp.test.utils import *
+from routers.auth import get_current_user, get_db, authenticate_user, create_access_token, SECRET_KEY, ALGORITHM
+from test.utils import *
 from jose import jwt
 from datetime import timedelta
 import pytest

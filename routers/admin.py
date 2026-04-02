@@ -2,9 +2,9 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException, Path, APIRouter
 from starlette import status
-from TodoApp.models import Todos
-from TodoApp.database import SessionLocal
-from TodoApp.routers.auth import get_current_user
+from models import Todos
+from database import SessionLocal
+from routers.auth import get_current_user
 
 
 
