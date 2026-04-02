@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.templating import Jinja2Templates
 from typing import Annotated
 from pydantic import BaseModel, Field
+from sqlalchemy.exc import IntegrityError
+
 from models import Users
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -98,20 +100,38 @@ def render_register_page(request: Request):
 ### Endpoints ###
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_user(db:db_dependency,create_user_request: CreateUserRequest):
-    create_user_model = Users(
-        email=create_user_request.email,
-        username=create_user_request.username,
-        first_name=create_user_request.first_name,
-        last_name=create_user_request.last_name,
-        role=create_user_request.role,
-        hashed_password=bcrypt_context.hash(create_user_request.password),
-        is_active=True,
-        phone_number=create_user_request.phone_number
-    )
+async def create_user(db: db_dependency, create_user_request: CreateUserRequest):
+    try:
+        create_user_model = Users(
+            email=create_user_request.email,
+            username=create_user_request.username,
+            first_name=create_user_request.first_name,
+            last_name=create_user_request.last_name,
+            role=create_user_request.role,
+            hashed_password=bcrypt_context.hash(create_user_request.password),
+            is_active=True,
+            phone_number=create_user_request.phone_number
+        )
 
-    db.add(create_user_model)
-    db.commit()
+        db.add(create_user_model)
+        db.commit()
+        db.refresh(create_user_model)
+
+        return {"message": "User created successfully"}
+
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail="User with this username or email already exists"
+        )
+    except Exception as e:
+        db.rollback()
+        print("CREATE USER ERROR:", repr(e))
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(
