@@ -4,10 +4,10 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.templating import Jinja2Templates
 from typing import Annotated
 from pydantic import BaseModel, Field
-from ..models import Users
+from TodoApp.models import Users
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-from ..database import SessionLocal
+from TodoApp.database import SessionLocal
 from starlette import status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError

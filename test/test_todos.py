@@ -1,7 +1,7 @@
 from starlette import status
-from ..routers.auth import get_current_user
-from ..routers.todos import get_db, NOT_FOUND_DETAIL
-from .utils import *
+from TodoApp.routers.auth import get_current_user
+from TodoApp.routers.todos import get_db, NOT_FOUND_DETAIL
+from TodoApp.test.utils import *
 
 app.dependency_overrides[get_db] = override_get_db
 app.dependency_overrides[get_current_user] = override_get_current_user

@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine, StaticPool, text
 from sqlalchemy.orm import sessionmaker
-from ..database import Base
+from TodoApp.database import Base
 from fastapi.testclient import TestClient
 import pytest
-from ..main import app
-from ..models import Todos, Users
-from ..routers.users import bcrypt_context
+from TodoApp.main import app
+from TodoApp.models import Todos, Users
+from TodoApp.routers.users import bcrypt_context
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Ghbrjk12@localhost/TestTodoApplicationDatabase'
 
