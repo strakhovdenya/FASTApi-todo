@@ -190,7 +190,7 @@ if (registerForm) {
             phone_number: data.phone_number,
             password: data.password
         };
-        console.log('payload = ', payload)
+
         try {
             const response = await fetch('/auth', {
                 method: 'POST',
